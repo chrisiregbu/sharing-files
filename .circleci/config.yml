@@ -2,22 +2,23 @@
 version: 2.1
 # Use a package of configuration called an orb.
 jobs:
-  save_hello_world_output:
+  save_hello_world_output: # Add a job named save_hello_world_output
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - run: echo "hello world" > ~/output.txt
-      - persist_to_workspace:
+      - run: echo "hello world" > ~/output.txt # Output "hello world" to a file called output.txt
+      - persist_to_workspace: # Add a persist_to_workspace block to that job and reference output.txt 
+                              # so that it gets saved to the "workspace" (making it available to other jobs).
           root: ~/
           paths:
             - output.txt
-  print_output_file:
+  print_output_file: # Add another job named print_output_file
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - attach_workspace:
+      - attach_workspace: # add a attach_workspace block (much like attaching a hard drive).
           at: ~/
-      - run: cat ~/output.txt
+      - run: cat ~/output.txt # In this job, also run a bash command that prints the contents of output.txt
 workflows:
   # Name the workflow "my_workflow"
   my_workflow:
