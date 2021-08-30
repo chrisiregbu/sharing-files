@@ -2,7 +2,7 @@
 version: 2.1
 # Use a package of configuration called an orb.
 jobs:
-  save_hello_world_output: # Add a job named save_hello_world_output
+  save_hello_world_output: # Define a Job (named save_hello_world_output) that Saves the Output of a Command in a File
     docker:
       - image: circleci/node:13.8.0
     steps:
@@ -12,7 +12,7 @@ jobs:
           root: ~/
           paths:
             - output.txt
-  print_output_file: # Add another job named print_output_file
+  print_output_file: # Define a Job (named print_output_file) that Prints the Contents of a File that has Persisted in the Workspace
     docker:
       - image: circleci/node:13.8.0
     steps:
@@ -21,7 +21,7 @@ jobs:
       - run: cat ~/output.txt # In this job, also run a bash command that prints the contents of output.txt
 workflows:
   # Name the workflow "my_workflow"
-  my_workflow:
+  my_workflow: # Define a Workflow Ordering the Execution of the Jobs Sequentially
     # Run the save_hello_world_output/print_out_file job in its own container
     jobs:
       - save_hello_world_output
